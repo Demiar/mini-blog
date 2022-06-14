@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %} Регистрация  {% endblock %}
+{% block content %}
+    <h1>{{ blog.title }}</h1>
+        <div class="p-3"><span class="fw-bold">Дата публикации: </span>{{ blog.post_date|date:'d N Y' }}</div>
+        <div class="p-3"><span class="fw-bold">Автор: </span><a href="{% url 'author_detail' pk=blog.author.pk %}">{{ blog.author }}</a> </div>
+        <div class="p-3"><span class="fw-bold">Описание: </span><p>{{ blog.content }}</p></div>
+{% endblock %}

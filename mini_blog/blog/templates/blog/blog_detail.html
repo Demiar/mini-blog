@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %} Страница  {% endblock %}
+{% block content %}
+<h1 class="p-2">{{ blog.title }}</h1>
+<div class="p-2"><span class="fw-bold">Дата публикации: </span>{{ blog.post_date|date:'d N Y' }}</div>
+<div class="p-2"><span class="fw-bold">Автор: </span><a class="no-border" href="{% url 'author_detail' pk=blog.author.pk %}">{{ blog.author }}</a></div>
+<div class="p-2"><span class="fw-bold">Описание: </span>
+    <p class="p-2">{{ blog.content|linebreaks }}</p></div>
+<h4 class="p-2">Комментарии</h4>
+
+{% if user.is_authenticated %}
+<form method="post" class="p-2">
+    {% include "blog/comment_form.html" %}
+</form>
+{% else %}
+<a href="login/">Войти, чтобы оставить комментарий</a>
+{% endif %}
+
+{% for comment in comments %}
+<div class="card p-2">
+    <div class="card-body">
+        {{ comment.author}} ({{comment.post_date|date:'d N Y H:m'}}) {{ comment.text }}
+    </div>
+</div>
+{% endfor %}
+
+
+{% endblock %}

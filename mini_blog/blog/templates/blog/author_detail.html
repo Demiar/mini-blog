@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %} {{ author.username }} {% endblock %}
+{% block content %}
+    <h1 class="p-2">Автор: {{ author.user.username }}</h1>
+    <h3 class="p-2">Биография:</h3>
+    <div class="p-2">{{ author.about|linebreaks }}</div>
+    {%if blogs%}
+        <h3 class="p-2">Все блоги</h3>
+        {% for blog in blogs %}
+            <div class="card p-2">
+                <div class="card-body">
+                          <span><a class="no-border"
+                                  href="{% url 'blog_detail' blog.pk %}">{{ blog.title }}</a> ({{ blog.post_date|date:'d N Y' }})</span>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif%}
+{% endblock %}
